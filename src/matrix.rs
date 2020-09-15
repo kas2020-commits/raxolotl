@@ -1,8 +1,6 @@
 
 pub struct Matrix
 {
-    pub rows: u32,
-    pub cols: u32,
     pub data: Vec<Vec<f64>>,
 }
 
@@ -18,3 +16,4 @@ impl Matrix
         }
     }
 }
+

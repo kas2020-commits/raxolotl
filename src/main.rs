@@ -1,10 +1,10 @@
 mod findroot;
 mod integrals;
 mod matrix;
+mod ode;
 
-fn main
+fn numerical_test_harness
 () {
-    // numerical section
     let f = |x: f64| { x.powf(3f64) - x - 2f64 };
     let df = |x: f64| { (3f64 * x.powf(2f64)) - 1f64 };
     let tol = 1e-7;
@@ -16,18 +16,62 @@ fn main
     println!("Newton method: {} after {} itterations", nm.0.0, nm.0.1);
     println!("Bisection method: {} after {} itterations", nm.1.0, nm.1.1);
     println!("Secent method: {} after {} itterations", nm.2.0, nm.2.1);
+}
 
-    // integration section
+fn integral_test_harness
+() {
+    let max_it = 1000;
     let a = 0f64;
     let b = 10f64;
     let f2 = |x: f64| { x.exp() };
     println!("Trapezoid method: {}", integrals::composite_trapezoid(max_it, &f2, a, b));
     println!("Midpoint method: {}", integrals::composite_midpoint(max_it, &f2, a, b));
     println!("Simpson method: {}", integrals::composite_simpson(max_it, &f2, a, b));
+}
 
-    // matrix smoke test
-    let mat1 = matrix::Matrix {
-        rows: 2, cols: 2, data: vec![vec![1f64, 2f64], vec![1f64, 2f64]]};
+fn matrix_test_harness
+() {
+    let mut mat1 = matrix::Matrix {data: vec![vec![1f64, 2f64], vec![3f64, 4f64]]};
     mat1.print();
+    println!("The item in position [2][2] is {}", mat1.data[1][1]);
+
+    // TODO: prevent the ability for people to do this!
+    mat1.data[0].resize(8, 0f64);
+    mat1.print();
+}
+
+fn print_vec_result
+(data: Vec<f64>, x0: f64, h: f64) {
+    let mut x = x0;
+    for i in data.iter() {
+        println!("At x = {}, y = {}", x, i);
+        x += h;
+    }
+}
+
+fn ode_test_harness
+() {
+    let k = 1f64;
+    let odf = |x: f64| { k * x };
+    let h = 0.1f64;
+    let a = 0f64;
+    let b = 1f64;
+    let y0 = 1f64;
+    // euler's
+    let results_euler = ode::euler(h, a, b, y0, odf);
+    println!("Euler's method:");
+    print_vec_result(results_euler, a, h);
+    // trap
+    let results_trap = ode::trapezoidal(h, a, b, y0, odf);
+    println!("Trapezoidal method:");
+    print_vec_result(results_trap, a, h);
+}
+
+fn main
+() {
+    numerical_test_harness();
+    integral_test_harness();
+    matrix_test_harness();
+    ode_test_harness();
 }
 
