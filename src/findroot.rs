@@ -1,4 +1,7 @@
 
+//! Perhaps the most simple algorithm to find the root of a function. The problem
+//! with the newton_raphson method, however, is the fact that you need to know
+//! the derivative function as well.
 pub fn newton_raphson
 (tol: f64, max_it: u32, f: impl Fn(f64) -> f64, df: impl Fn(f64) -> f64, mut x0: f64) -> (f64, u32) {
     for cur_it in 1..max_it {
