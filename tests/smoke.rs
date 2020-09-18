@@ -31,13 +31,9 @@ fn integral_test_harness
 
 fn matrix_test_harness
 () {
-    let mut mat1 = matrix::Matrix {data: vec![vec![1f64, 2f64], vec![3f64, 4f64]]};
+    let mat1 = matrix::Matrix::new(vec![vec![1f64, 2f64], vec![3f64, 4f64]]);
     mat1.print();
-    println!("The item in position [2][2] is {}", mat1.data[1][1]);
-
-    // TODO: prevent the ability for people to do this!
-    mat1.data[0].resize(8, 0f64);
-    mat1.print();
+    println!("The item in position [1][1] is {}", mat1.at(1,1));
 }
 
 fn print_vec_result
@@ -65,13 +61,5 @@ fn ode_test_harness
     let results_trap = ode::trapezoidal(h, a, b, y0, odf);
     println!("Trapezoidal method:");
     print_vec_result(results_trap, a, h);
-}
-
-fn main
-() {
-    numerical_test_harness();
-    integral_test_harness();
-    matrix_test_harness();
-    ode_test_harness();
 }
 
