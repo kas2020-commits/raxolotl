@@ -1,6 +1,6 @@
 // #![cfg_attr(test, allow(dead_code))]
 #![warn(
-    // missing_docs,
+    missing_docs,
     // missing_debug_implementations,
     // missing_copy_implementations,
     trivial_casts,
@@ -10,6 +10,13 @@
     unused_import_braces,
     unused_qualifications
 )]
+
+//! raxolotl is a numerical computation library designed as a learning tool for
+//! common computational methods and their applications. Although the design is
+//! centered around teaching applications, the primary focus in the code is on
+//! speed and performance. Readability of the code is not the primary focus at
+//! any stage of the codebase. A great example is using bitwise shift operations
+//! in favor of dividing or multiplying by powers of 2.
 
 mod findroot;
 mod integrals;
