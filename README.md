@@ -19,13 +19,13 @@ extern crate raxolotl;
 ```
 
 If you want to avoid calling the namespace every time you use the library you
-can also add this:
+can also add this line in your code:
 ```
-use raxolotl::*
+use raxolotl::*;
 ```
 
-Considering that the API is not frozen, I do not recommend this unless you check
-the source code
+Probably not the best idea though considering you would be heavily cluttering
+the global namespace
 
 In your `Cargo.toml` file, you need to include it as a dependancy:
 

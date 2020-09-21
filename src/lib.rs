@@ -32,7 +32,7 @@ pub use integrals::{
 };
 
 pub use ode::{
-    euler, trapezoidal
+    euler, trapezoidal, calc_real_sol, check_vec_tol
 };
 
 pub use matrix::Matrix;
