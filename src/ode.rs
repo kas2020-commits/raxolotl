@@ -35,7 +35,7 @@ pub fn check_vec_tol
 /// Local Error: O(h^2)
 /// Solution order: 1
 /// Type: Explicit
-pub fn euler
+pub fn odesolve_euler
 (h: Num, a: Num, b: Num, y0: Num, df: impl Fn(Num) -> Num) -> Vec<Num> {
     let n = ((b - a) / h) as usize + 1;
     let mut y = y0;
@@ -53,7 +53,7 @@ pub fn euler
 /// Solution order: 2
 /// Type: Implicit
 /// General Form: Theta method
-pub fn trapezoidal
+pub fn odesolve_trapezoidal
 (h: Num, a: Num, b: Num, y0: Num, df: impl Fn(Num) -> Num) -> Vec<Num> {
     let n = ((b - a) / h) as usize + 1;
     let mut y = y0;

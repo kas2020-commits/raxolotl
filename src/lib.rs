@@ -1,8 +1,6 @@
-// #![cfg_attr(test, allow(dead_code))]
+#![cfg_attr(test, allow(dead_code))]
 #![warn(
     missing_docs,
-    // missing_debug_implementations,
-    // missing_copy_implementations,
     trivial_casts,
     trivial_numeric_casts,
     unsafe_code,
@@ -24,16 +22,13 @@ mod matrix;
 mod ode;
 
 pub use findroot::{
-    newton_raphson, bisection, secent,
+    root_newton_raphson, root_bisection, root_secent,
 };
-
 pub use integrals::{
     composite_midpoint, composite_trapezoid, composite_simpson,
 };
-
 pub use ode::{
-    euler, trapezoidal, calc_real_sol, check_vec_tol
+    odesolve_euler, odesolve_trapezoidal, calc_real_sol, check_vec_tol,
 };
-
-pub use matrix::Matrix;
+pub use matrix:: Matrix;
 

@@ -1,7 +1,7 @@
 
 /// Possibly the simplest algorithm for finding the root of a function. This is
 /// Decent if you already have the analytical derivative known.
-pub fn newton_raphson
+pub fn root_newton_raphson
 (tol: f64, max_it: u32, f: impl Fn(f64) -> f64, df: impl Fn(f64) -> f64, mut x0: f64) -> (f64, u32) {
     for cur_it in 1..max_it {
         let h = f(x0) / df(x0);
@@ -15,7 +15,7 @@ pub fn newton_raphson
 /// An extremely basic algorithm where the solution to the first derivative is
 /// Not needed. Linear convergence is almost always satisfied, however linear
 /// Convergence sucks. Ideal algorithm for simplicity's sake but not much else.
-pub fn bisection
+pub fn root_bisection
 (tol: f64, max_it: u32, f: impl Fn(f64) -> f64, mut a: f64, mut b: f64) -> (f64, u32) {
     for cur_it in 1..max_it {
         let retval = (a + b) / 2.0;
@@ -31,7 +31,7 @@ pub fn bisection
 /// A method with the same interface as bisection but is more related to newton.
 /// This method approximates the derivative at every step (linear approx). This
 /// Converges faster than bisection.
-pub fn secent
+pub fn root_secent
 (tol: f64, max_it: u32, f: impl Fn(f64) -> f64, mut x0: f64, mut x1: f64) -> (f64, u32) {
     for cur_it in 1..max_it {
         let h = f(x0) * ((x1 - x0) / (f(x1) - f(x0)));
