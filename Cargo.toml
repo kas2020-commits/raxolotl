@@ -4,6 +4,10 @@ version = "0.1.0"
 authors = ["kar"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "raxolotl"
+crate-type = ["rlib"]
+# crate-type = ["rlib", "cdylib", "staticlib"]
 
 [dependencies]
+num = "^0.3.0"

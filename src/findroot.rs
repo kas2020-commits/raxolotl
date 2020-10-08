@@ -1,8 +1,10 @@
 
+type Num = f64;
+
 /// Possibly the simplest algorithm for finding the root of a function. This is
 /// Decent if you already have the analytical derivative known.
 pub fn root_newton_raphson
-(tol: f64, max_it: u32, f: impl Fn(f64) -> f64, df: impl Fn(f64) -> f64, mut x0: f64) -> (f64, u32) {
+(tol: Num, max_it: u32, f: impl Fn(Num) -> Num, df: impl Fn(Num) -> Num, mut x0: Num) -> (Num, u32) {
     for cur_it in 1..max_it {
         let h = f(x0) / df(x0);
         let retval = x0 - h;
@@ -16,7 +18,7 @@ pub fn root_newton_raphson
 /// Not needed. Linear convergence is almost always satisfied, however linear
 /// Convergence sucks. Ideal algorithm for simplicity's sake but not much else.
 pub fn root_bisection
-(tol: f64, max_it: u32, f: impl Fn(f64) -> f64, mut a: f64, mut b: f64) -> (f64, u32) {
+(tol: Num, max_it: u32, f: impl Fn(Num) -> Num, mut a: Num, mut b: Num) -> (Num, u32) {
     for cur_it in 1..max_it {
         let retval = (a + b) / 2.0;
         let h = f(retval);
@@ -32,7 +34,7 @@ pub fn root_bisection
 /// This method approximates the derivative at every step (linear approx). This
 /// Converges faster than bisection.
 pub fn root_secent
-(tol: f64, max_it: u32, f: impl Fn(f64) -> f64, mut x0: f64, mut x1: f64) -> (f64, u32) {
+(tol: Num, max_it: u32, f: impl Fn(Num) -> Num, mut x0: Num, mut x1: Num) -> (Num, u32) {
     for cur_it in 1..max_it {
         let h = f(x0) * ((x1 - x0) / (f(x1) - f(x0)));
         let retval = x0 - h;

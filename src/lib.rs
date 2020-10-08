@@ -20,6 +20,7 @@ mod findroot;
 mod integrals;
 mod matrix;
 mod ode;
+mod fourier;
 
 pub use findroot::{
     root_newton_raphson, root_bisection, root_secent,
@@ -28,7 +29,10 @@ pub use integrals::{
     composite_midpoint, composite_trapezoid, composite_simpson,
 };
 pub use ode::{
-    odesolve_euler, odesolve_trapezoidal, calc_real_sol, check_vec_tol,
+    odesolve_euler, odesolve_trapezoidal,
+};
+pub use fourier::{
+    fft, ifft,
 };
 pub use matrix:: Matrix;
 
