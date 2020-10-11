@@ -5,7 +5,8 @@ use std::f64::consts::PI;
 
 const I: Complex<f64> = Complex { re: 0.0, im: 1.0 };
 
-/// hi
+/// Compute the fourier transform of a vector. Allocates a vector on the heap
+/// and returns the value.
 pub fn fft
 (input: &[Complex<f64>]) -> Vec<Complex<f64>> {
     fn fft_inner(
@@ -43,7 +44,8 @@ pub fn fft
     buf_a
 }
 
-/// hey
+/// Computes the inverse fourier transform using the fft algorithm. Allocates a
+/// vector on the heap and returns the value.
 pub fn ifft
 (input: &[Complex<f64>]) -> Vec<Complex<f64>> {
     let n = input.len();

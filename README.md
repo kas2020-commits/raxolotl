@@ -1,7 +1,13 @@
-## raxolotl
+## Raxolotl
 
-Raxolotl is an adaptation from the origional
-[Axolotl++](https://github.com/kas2020-commits/axolotl) library.
+Raxolotl is an ongoing project which aims to provide a monolothic library for
+students to easily use simple implementations of common numerical methods.
+Currently here some highlights:
+
+- Fast Fourier Transform (and its inverse)
+- Root finding algorithms
+- ODE linspace solvers
+-
 
 ### Installation
 
