@@ -48,10 +48,9 @@ pub fn fft
 /// vector on the heap and returns the value.
 pub fn ifft
 (input: &[Complex<f64>]) -> Vec<Complex<f64>> {
-    let n = input.len();
-    let mut buf_a = input.to_vec();
-    for i in 0..n {
-        buf_a[i] = buf_a[i].conj().unscale(n as f64);
-    }
-    fft(&buf_a)
+    let buff = input
+        .into_iter()
+        .map(|x| x.conj().unscale(input.len() as f64))
+        .collect::<Vec<_>>();
+    fft(&buff)
 }
