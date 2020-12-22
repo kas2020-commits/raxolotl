@@ -20,7 +20,9 @@ mod findroot;
 mod integrals;
 mod matrix;
 mod ode;
+mod ode_implicit;
 mod fourier;
+mod export;
 
 pub use findroot::{
     root_newton_raphson, root_bisection, root_secent,
@@ -29,10 +31,18 @@ pub use integrals::{
     composite_midpoint, composite_trapezoid, composite_simpson,
 };
 pub use ode::{
-    odesolve_euler, odesolve_trapezoidal, odesolve_nystrom, odesolve_erk4
+    linspace, odesolve_euler, odesolve_erk4
 };
 pub use fourier::{
     fft, ifft,
 };
+pub use ode_implicit::{
+    odesolve_trapezoidal, odesolve_nystrom
+};
+pub use export::{
+    vec_export_matlab, mat_export_matlab
+};
 pub use matrix:: Matrix;
 
+/// Numerical type used in this library
+pub type Num = f64;

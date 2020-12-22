@@ -1,18 +1,9 @@
 #[cfg(test)]
 extern crate raxolotl;
-
-fn linspace
-(a: f32, b: f32, n: usize) -> Vec<f32> {
-    let mut y = Vec::with_capacity(n);
-    let h = (b - a) / n as f32;
-    for i in 0..n {
-        y.push( (i+1) as f32 * h );
-    }
-    y
-}
+type Num = raxolotl::Num;
 
 fn check_vec_tol
-(v1: &Vec<f32>, v2: &Vec<f32>, tol: f32) -> bool {
+(v1: &Vec<Num>, v2: &Vec<Num>, tol: Num) -> bool {
     assert!(v1.len() == v2.len());
     let len = v1.len();
     for i in 0..len {
@@ -26,7 +17,7 @@ fn check_vec_tol
 }
 
 fn check_odesolver
-(tspan: &[f32], f: impl Fn(f32) -> Vec<f32>, v2: &Vec<Vec<f32>>, tol: f32) -> bool {
+(tspan: &[Num], f: impl Fn(Num) -> Vec<Num>, v2: &Vec<Vec<Num>>, tol: Num) -> bool {
     let n = tspan.len();
     for i in 0..n {
         if check_vec_tol(&f(tspan[i]), &v2[i], tol) == false {
@@ -54,11 +45,10 @@ fn check_complex_tol
 
 #[test]
 fn smoke_ode() {
-    type Num = f32;
     // closures
     let odf = |_t: Num, x: &[Num]| { vec![1.0 * x[0]] };
     let fc = |x: Num| { vec![x.exp()] };
-    let tspan = linspace(0., 1., 100);
+    let tspan = raxolotl::linspace(0., 1., 100);
     let y0 = vec![1.];
     let r_euler = raxolotl::odesolve_euler(&tspan, &y0, odf);
     assert!(check_odesolver(&tspan, fc, &r_euler, 0.1));
