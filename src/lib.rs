@@ -29,7 +29,7 @@ pub use integrals::{
     composite_midpoint, composite_trapezoid, composite_simpson,
 };
 pub use ode::{
-    odesolve_euler, odesolve_trapezoidal,
+    odesolve_euler, odesolve_trapezoidal, odesolve_nystrom, odesolve_erk4
 };
 pub use fourier::{
     fft, ifft,

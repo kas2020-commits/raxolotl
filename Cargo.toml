@@ -4,6 +4,10 @@ version = "0.1.0"
 authors = ["kar"]
 edition = "2018"
 
+[[bin]]
+name = "analysis"
+path = "bin/main.rs"
+
 [lib]
 name = "raxolotl"
 crate-type = ["rlib"]

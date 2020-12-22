@@ -1,16 +1,14 @@
 #[cfg(test)]
 extern crate raxolotl;
 
-fn calc_real_sol
-(h: f32, a: f32, b: f32, f: impl Fn(f32) -> f32) -> Vec<f32> {
-    let n = ((b - a) / h) as usize + 1;
-    let mut x = a;
-    let mut ans = Vec::with_capacity(n);
-    for _i in 0..n {
-        ans.push(f(x));
-        x += h;
+fn linspace
+(a: f32, b: f32, n: usize) -> Vec<f32> {
+    let mut y = Vec::with_capacity(n);
+    let h = (b - a) / n as f32;
+    for i in 0..n {
+        y.push( (i+1) as f32 * h );
     }
-    ans
+    y
 }
 
 fn check_vec_tol
@@ -21,6 +19,17 @@ fn check_vec_tol
         if (v1[i] - v2[i]).abs() < tol {
             continue;
         } else {
+            return false;
+        }
+    }
+    true
+}
+
+fn check_odesolver
+(tspan: &[f32], f: impl Fn(f32) -> Vec<f32>, v2: &Vec<Vec<f32>>, tol: f32) -> bool {
+    let n = tspan.len();
+    for i in 0..n {
+        if check_vec_tol(&f(tspan[i]), &v2[i], tol) == false {
             return false;
         }
     }
@@ -41,6 +50,18 @@ fn check_complex_tol
         }
     }
     true
+}
+
+#[test]
+fn smoke_ode() {
+    type Num = f32;
+    // closures
+    let odf = |_t: Num, x: &[Num]| { vec![1.0 * x[0]] };
+    let fc = |x: Num| { vec![x.exp()] };
+    let tspan = linspace(0., 1., 100);
+    let y0 = vec![1.];
+    let r_euler = raxolotl::odesolve_euler(&tspan, &y0, odf);
+    assert!(check_odesolver(&tspan, fc, &r_euler, 0.1));
 }
 
 #[test]
@@ -85,21 +106,6 @@ fn smoke_matrix() {
     let mat1 = raxolotl::Matrix::new(
         vec![vec![1.0, 2.0, 8.0], vec![3.0, 4.0, 6.0]]);
     assert!(mat1.at(1,2) == 6.0);
-}
-
-#[test]
-fn smoke_ode() {
-    type Num = f32;
-    // closures
-    let odf = |x: Num| { 1.0 * x };
-    let fc = |x: Num| { x.exp() };
-    // calculate the control vector as well as testings
-    let control = calc_real_sol(0.01, 0.0, 1.0, fc);
-    let r_euler = raxolotl::odesolve_euler(0.01, 0.0, 1.0, 1.0, odf);
-    let r_trap  = raxolotl::odesolve_trapezoidal(0.01, 0.0, 1.0, 1.0, odf);
-    // asserts
-    assert!(check_vec_tol(&control, &r_euler, 0.1));
-    assert!(check_vec_tol(&control, &r_trap, 0.1));
 }
 
 #[test]
