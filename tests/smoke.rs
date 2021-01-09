@@ -34,10 +34,10 @@ fn check_complex_tol
     let len = v1.len();
     for i in 0..len {
         if (v1[i].re - v2[i].re).abs() < tol
-        && (v1[i].im - v2[i].im).abs() < tol {
-            continue;
-        } else {
-            return false;
+            && (v1[i].im - v2[i].im).abs() < tol {
+                continue;
+            } else {
+                return false;
         }
     }
     true
